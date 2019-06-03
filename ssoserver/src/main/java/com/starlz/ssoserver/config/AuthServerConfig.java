@@ -2,6 +2,7 @@ package com.starlz.ssoserver.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -18,7 +19,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.tokenKeyAccess("permitAll()")      // 配置哪些对应方法下URI资源需要（及不需要）用token换取
+        oauthServer
+                .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
     }
 
@@ -30,7 +32,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .authorizedGrantTypes("authorization_code")
                 .scopes("user_info")
                 .autoApprove(true)      // 由于注册应用都是可信的，因此设置用户自动确认授权给该应用，简化授权流程，实现多应用静默登录
-                .redirectUris("http://www.baidu.com")  // 需要注意的是此处设置的是应用可接受的回调地址
+                .redirectUris("http://localhost:8082/client/login")  // 需要注意的是此处设置的是应用可接受的回调地址
         ;
     }
 
