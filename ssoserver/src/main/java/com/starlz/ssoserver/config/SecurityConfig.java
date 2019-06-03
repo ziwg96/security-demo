@@ -14,15 +14,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers()
-                .antMatchers("/admin/**", "/login", "/oauth/authorize")
+        http
+                .authorizeRequests()
+                .antMatchers( "/login", "/oauth/authorize").permitAll()
+                .and()
+                .formLogin()   // 指定用户登录认证通过表单
+                .permitAll()
+
+                .and()
+                .requestMatchers()
+                .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", "/exit")
+
                 .and()
                 .authorizeRequests()
                 .anyRequest()
-                .authenticated()   // 指定所有路径需要认证
-                .and()
-                .formLogin()   // 指定用户登录认证通过表单
-                .permitAll();
+                .authenticated();   // 指定所有路径需要认证
     }
 
     @Override
