@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.requestMatchers()
-                .antMatchers("/login", "/oauth/authorize") // 指定哪些路径不需要resource认证
+                .antMatchers("/admin/**", "/login", "/oauth/authorize")
                 .and()
                 .authorizeRequests()
                 .anyRequest()
