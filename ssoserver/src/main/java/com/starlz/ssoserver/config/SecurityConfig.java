@@ -1,5 +1,8 @@
 package com.starlz.ssoserver.config;
 
+import com.starlz.ssoserver.AdminUserService;
+import org.apache.tomcat.util.security.MD5Encoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -11,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private AdminUserService adminUserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,14 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()    // 指定用户信息内存存储，此外还有jdbc存储方式
-                .withUser("john")   // 以下位指定用户名、加密的密码及用户角色
-                .password(passwordEncoder().encode("123"))
-                .roles("USER");
+        auth.userDetailsService(adminUserService);
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();    // 声明用于密码加密的encoder
     }
+
 }
