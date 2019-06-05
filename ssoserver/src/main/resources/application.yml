@@ -5,7 +5,7 @@ server:
 
 spring:
   redis:
-    host: localhost
+    host: cnzzi.cn
     port: 6379
 
   datasource:
@@ -20,4 +20,6 @@ mybatis:
   type-aliases-package: com.starlz.server.entity
 
 
-
+logging:
+  level:
+    root: debug
