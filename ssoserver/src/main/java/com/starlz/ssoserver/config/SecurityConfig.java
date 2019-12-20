@@ -29,12 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers( "/login", "/oauth/authorize").permitAll()
             .and()
             .formLogin()   // 指定用户登录认证通过表单
-            .permitAll();
+            .permitAll()
 
-            /*//单点登录配置
+            //单点登录配置
             .and()
             .requestMatchers()
-            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", "/exit");*/
+            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", "/exit");
 
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
     }
