@@ -22,4 +22,5 @@ spring:
   redis:
     host: cnzzi.cn
     port: 6379
+    password: 199608
 
