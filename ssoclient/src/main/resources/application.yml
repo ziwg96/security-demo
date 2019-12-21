@@ -19,6 +19,8 @@ security:
 spring:
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
   redis:
     host: cnzzi.cn
     port: 6379

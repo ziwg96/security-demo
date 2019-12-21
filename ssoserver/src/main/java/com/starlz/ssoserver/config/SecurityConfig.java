@@ -24,17 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-            .antMatchers( "/login", "/oauth/authorize").permitAll()
-            .and()
-            .formLogin()   // 指定用户登录认证通过表单
-            .permitAll()
-
-            //单点登录配置
-            .and()
-            .requestMatchers()
-            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access", "/exit");
+        http.requestMatchers()
+                .antMatchers("/login", "/oauth/authorize","oauth/token")
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .permitAll();
 
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
     }

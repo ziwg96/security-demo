@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/login**")  // 除了“/”及“/login**”路径外的路径资源都需要认证才能访问
+                .antMatchers("/", "/login**", "/user")  // 除了“/”及“/login**”路径外的路径资源都需要认证才能访问
                 .permitAll()
                 .anyRequest()
                 .authenticated();
